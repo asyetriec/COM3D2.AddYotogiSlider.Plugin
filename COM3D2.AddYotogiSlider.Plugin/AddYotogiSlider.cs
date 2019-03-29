@@ -14,10 +14,10 @@ using Yotogis;
 namespace COM3D2.AddYotogiSlider.Plugin
 {
 
-    [PluginFilter("CM3D2x64")]
     [PluginFilter("COM3D2x64")]
-    [PluginFilter("CM3D2x86")]
-    [PluginFilter("CM3D2VRx64")]
+    [PluginFilter("COM3D2VRx64")]
+    [PluginFilter("COM3D2OHx64")]
+    [PluginFilter("COM3D2OHVRx64")]
     [PluginName(AddYotogiSlider.PluginName)]
     [PluginVersion(AddYotogiSlider.Version)]
     public class AddYotogiSlider : UnityInjector.PluginBase
@@ -25,7 +25,7 @@ namespace COM3D2.AddYotogiSlider.Plugin
         #region Constants
 
         public const string PluginName = "AddYotogiSlider";
-        public const string Version = "0.1.2.0";
+        public const string Version = "0.1.3.0";
         private string _toggleKey = "f5";
 
         private readonly float TimePerInit = 1.00f;

@@ -12,7 +12,7 @@ namespace COM3D2.AddYotogiSlider.Plugin
     internal static class CoreUtil
     {
         public const string PLUGIN_NAME = "AddYotogiSlider";
-        public const string PLUGIN_VERSION = "0.1.2.0";
+        public const string PLUGIN_VERSION = "0.1.3.0";
         private static ExIni.IniFile _preferences;
         private static Dictionary<string, Dictionary<string, string>> _defaultValues = new Dictionary<string, Dictionary<string, string>>();
         private static bool _needSaveConfig = false;

@@ -69,8 +69,9 @@ namespace COM3D2.AddYotogiSlider.Plugin
             if (!File.Exists(path))
             {
                 // assume sybaris
-                Log("Data path does not exist, assume sybaris");
-                path = Path.Combine(path, @"../../Sybaris/Plugins/UnityInjector/Config/");
+                //Log("Data path does not exist, assume sybaris");
+                //Log("The current path is " + path);
+                path = Path.Combine(path, @"../Config/");
             }
             _dataPath = path;
             try
