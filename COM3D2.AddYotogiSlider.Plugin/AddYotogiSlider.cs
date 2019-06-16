@@ -1372,11 +1372,7 @@ namespace COM3D2.AddYotogiSlider.Plugin
 //                {
 //                    Logger.Log(sStagePrefab[index]);
 //                }
-                if (sStagePrefab[0] == "BathRoom")
-                {
-                    sStagePrefab[0] = "Bathroom";
-                }
-                int stageIndex = sStageNames.IndexOf(sStagePrefab[0]);
+                int stageIndex = sStageNames.FindIndex(s => String.Equals(s, sStagePrefab[0], StringComparison.OrdinalIgnoreCase));
 
                 slider["Excite"] = new YotogiSlider("Slider:Excite", -100f, 300f, 0f, this.OnChangeSliderExcite, sliderName[0], true);
                 slider["Mind"] = new YotogiSlider("Slider:Mind", 0f, mind, 999f, this.OnChangeSliderMind, sliderName[1], true);
@@ -1434,8 +1430,11 @@ namespace COM3D2.AddYotogiSlider.Plugin
                 grid["FaceAnime"].Visible = false;
                 grid["FaceBlend"].Visible = false;
 
-                window.AddChild(lSelect["StageSelect"]);
-                window.AddHorizontalSpacer();
+                if (stageIndex >= 0)
+                {
+                    window.AddChild(lSelect["StageSelect"]);
+                    window.AddHorizontalSpacer();
+                }
 
                 panel["Status"] = window.AddChild<YotogiPanel>(new YotogiPanel("Panel:Status", "Status", YotogiPanel.HeaderUI.Slider));
                 panel["Status"].AddChild(slider["Excite"]);
@@ -2183,7 +2182,7 @@ namespace COM3D2.AddYotogiSlider.Plugin
                 // 放置中の瞳自然降下
                 if (!pa["AHE.継続.0"].NowPlaying && !pa["AHE.絶頂.0"].NowPlaying)
                 {
-                    float eyepos = maid.body0.trsEyeL.localPosition.y * fEyePosToSliderMul;
+                    float eyepos = slider["EyeY"].Value;
                     if (eyepos > fAheDefEye) updateMaidEyePosY(eyepos - fAheEyeDecrement * (int)(fPassedTimeOnCommand / 10));
                 }
             }
@@ -2338,11 +2337,11 @@ namespace COM3D2.AddYotogiSlider.Plugin
 
         private void updateMaidEyePosY(float value)
         {
-            if (value < 0f) value = 0f;
+            if (value < fAheDefEye) value = fAheDefEye;
             Vector3 vl = maid.body0.trsEyeL.localPosition;
             Vector3 vr = maid.body0.trsEyeR.localPosition;
-            maid.body0.trsEyeL.localPosition = new Vector3(vl.x, Math.Max((fAheDefEye + value) / fEyePosToSliderMul, 0f), vl.z);
-            maid.body0.trsEyeR.localPosition = new Vector3(vl.x, Math.Min((fAheDefEye - value) / fEyePosToSliderMul, 0f), vl.z);
+            maid.body0.trsEyeL.localPosition = new Vector3(vl.x, value / fEyePosToSliderMul, vl.z);
+            maid.body0.trsEyeR.localPosition = new Vector3(vl.x, -value / fEyePosToSliderMul, vl.z);
 
             updateSlider("Slider:EyeY", value);
         }
